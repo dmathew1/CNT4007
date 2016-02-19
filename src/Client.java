@@ -2,42 +2,40 @@
  * Created by denzel on 2/15/16.
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
 public class Client  {
     public static void main(String[] args) throws IOException{
+        String serverAddress="";
+
+        //Scanner object to read in user input
         Scanner sc = new Scanner(System.in);
 
         //Create a socket on the localhost machine with port 8080
-        Socket socket = new Socket("localhost",8080);
+        Socket socket = new Socket(serverAddress,8080);
 
-        PrintWriter data = new PrintWriter(socket.getOutputStream(),true);
+        //Write and Read Buffers
+        PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
         BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        System.out.println(input.readLine());
         System.out.print("Enter operation: " );
 
-        //operation
-        String operation = sc.next();
+       //accept all inputs
+        while(true){
+            String command = sc.nextLine();
 
-        //operand 1
-        int a = sc.nextInt();
+            out.println(command);
+            out.flush();
 
-        //operand 2
-        int b = sc.nextInt();
+            String answer = input.readLine();
+            if(answer.equals("-5")){
+                System.out.println("Exit");
+                System.exit(0);
+            }
+            System.out.println(answer);
 
-        //Send it to the network
-        data.println(operation);
-        data.println(a);
-        data.println(b);
-
-        data.flush();
-
-        String answer = input.readLine();
-        //Print answer
-        System.out.println(answer);
+        }
     }
 }
