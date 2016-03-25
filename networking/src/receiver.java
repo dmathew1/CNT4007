@@ -5,9 +5,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Created by denzel on 3/24/16.
- */
+
 public class receiver {
     //text path
     private static final String path = "src/text.txt";

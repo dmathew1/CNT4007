@@ -4,9 +4,6 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- * Created by denzel on 3/24/16.
- */
 
 //This is a server
 public class network {
@@ -89,63 +86,63 @@ public class network {
 
                 System.out.println(((sender.packet)in.readObject()).getString());
 
-//                //mailbox.putPck(in);
-//                sender.packet p;
-//
-//                //waiting for in which is a packet
-//
-//                while(true){
-//                    if(mailbox.pckWaiting()){
-//                       p = mailbox.getPck();
-//
-//                String state = getResult();
-//                if(state.equals("PASS")){
-//                    //send packet as is to receiver
-//                    out.writeObject(p);
-//                }else if(state.equals("CORRUPT")){
-//                    int originalCheck = p.getCheck();
-//                    p.setCheck(originalCheck + 1);
-//                    //send packet to the receiver
-//                    out.writeObject(p);
-//                }else{
-//                    //this is for dropped packet
-//                    //send message back to sender
-//
-//                }
-//
-//                //reset
-//                in = null;
-//                //waiting for in which is a packet
-//                while(in == null){
-//                   // in = new ObjectInputStream(socket.getInputStream());
-//                }
-//
-//                receiver.packetAck ack = (receiver.packetAck)in.readObject();
-//                state = getResult();
-//                if(state.equals("PASS")){
-//                    //send ack as is to sender
-//                    out.writeObject(p);
-//                }else if(state.equals("CORRUPT")){
-//                    int originalCheck = p.getCheck();
-//                    p.setCheck(originalCheck + 1);
-//                    //send packet to the receiver
-//                    out.writeObject(p);
-//                }else{
-//                    //this is for dropped packet
-//                    //send message back to sender
-//
-//                }
-//                // down here we are reading an ack
-//                //in.readObject()
-//
-//
-//            }else{
-//
-//
-//
-//
-//                    }
-//                }
+                //mailbox.putPck(in);
+                sender.packet p;
+
+                //waiting for in which is a packet
+
+                while(true){
+                    if(mailbox.pckWaiting()){
+                       p = mailbox.getPck();
+
+                String state = getResult();
+                if(state.equals("PASS")){
+                    //send packet as is to receiver
+                    out.writeObject(p);
+                }else if(state.equals("CORRUPT")){
+                    int originalCheck = p.getCheck();
+                    p.setCheck(originalCheck + 1);
+                    //send packet to the receiver
+                    out.writeObject(p);
+                }else{
+                    //this is for dropped packet
+                    //send message back to sender
+
+                }
+
+                //reset
+                in = null;
+                //waiting for in which is a packet
+                while(in == null){
+                   // in = new ObjectInputStream(socket.getInputStream());
+                }
+
+                receiver.packetAck ack = (receiver.packetAck)in.readObject();
+                state = getResult();
+                if(state.equals("PASS")){
+                    //send ack as is to sender
+                    out.writeObject(p);
+                }else if(state.equals("CORRUPT")){
+                    int originalCheck = p.getCheck();
+                    p.setCheck(originalCheck + 1);
+                    //send packet to the receiver
+                    out.writeObject(p);
+                }else{
+                    //this is for dropped packet
+                    //send message back to sender
+
+                }
+                // down here we are reading an ack
+                //in.readObject()
+
+
+            }else{
+
+
+
+
+                    }
+                }
 
                 }catch( IOException | ClassNotFoundException e){
                 e.printStackTrace();

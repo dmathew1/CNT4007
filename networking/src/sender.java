@@ -7,9 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Created by denzel on 3/24/16.
- */
+
 public class sender {
 
     //text path
