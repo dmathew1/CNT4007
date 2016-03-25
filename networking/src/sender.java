@@ -20,16 +20,36 @@ public class sender {
 
     //the packet class that encapsulate everything
     public static class packet implements Serializable{
-        public byte seq;
-        public byte id;
-        public int check;
-        public String word;
+        private byte seq;
+        private byte id;
+        private int check;
+        private String word;
 
         public packet(byte seq, byte id, int check, String word){
             this.seq = seq;
             this.id = id;
             this.check = check;
             this.word = word;
+        }
+
+        public byte getSeq(){
+            return this.seq;
+        }
+
+        public byte getID(){
+            return this.id;
+        }
+
+        public int getCheck(){
+            return this.check;
+        }
+
+        public String getString(){
+            return this.word;
+        }
+
+        public void setCheck(int check){
+            this.check = check;
         }
     }
 
