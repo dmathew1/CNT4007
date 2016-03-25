@@ -1,6 +1,9 @@
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
+
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,7 +13,7 @@ import java.util.Scanner;
 public class sender {
 
     //text path
-    private static final String path = "src/text.txt";
+    private static final String path = "./text.txt";
 
     //port
     private static final int port = 8080;
@@ -26,6 +29,8 @@ public class sender {
         private String word;
 
         public packet(byte seq, byte id, int check, String word){
+            //String str = new String(seq, StandardCharsets.UTF_8);
+            //String val = seq;
             this.seq = seq;
             this.id = id;
             this.check = check;
@@ -81,8 +86,8 @@ public class sender {
             String currentString = reader.next();
             check = calcCheck(currentString);
 
-            packet packet = new packet(seq,position,check,currentString);
-            packetArray.add(packet);
+            packet p = new packet(seq,position,check,currentString);
+            packetArray.add(p);
             position++;
         }
 
@@ -94,17 +99,17 @@ public class sender {
         //creating socket
         Socket socket = new Socket(url,port);
         ArrayList<packet> packetArrayList = new ArrayList<>();
-
-        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        packetCreator();
 
-       while(true){
-           for(int i =0; i<packetArrayList.size(); i++){
+        ByteOutputStream byteout = new ByteOutputStream(1);
+        byteout.write(1);
+        byteout.close();
+
+           for(int i = 0; i<packetArrayList.size(); i++){
                out.writeObject(packetArrayList.get(i));
            }
        }
-
-
-    }
 
 }
